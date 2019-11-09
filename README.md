@@ -3,7 +3,7 @@ annotation statistics for emotion analysis on a small corpus
 
 ## Corpus
 
-The corpus is made of 101 headlines from r/trueoffmychest, extracted on 6.11.2019.
+The corpus is made of 101 headlines from r/offmychest (https://www.reddit.com/r/offmychest/), extracted on 6.11.2019.
 
 It is annotated with emotions according to Ekman's emotion classification, along with 3 classes of intensities (high, normal, low).
 
