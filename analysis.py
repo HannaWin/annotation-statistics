@@ -1,5 +1,10 @@
 import xlrd
 from sklearn.metrics import cohen_kappa_score
+import matplotlib.pyplot as plt
+import operator
+import numpy as np
+
+
 
 def read_file(file, sheetname):
 	"""read excel file and save annotations in nested list"""
@@ -126,6 +131,48 @@ def disagreements(anno_dict1, anno_dict2):
 
 
 
+def vis_freq_emotions(emo_count1, emo_count2):
+	"""makes bar plot for annotated emotions and there frequencies,
+	for each annotation """
+	n_groups = len(emo_count2)
+	#sort annotations biggest value
+	sorted_dict1 = sorted(emo_count1.items(), key=operator.itemgetter(1))
+	sorted_dict1.reverse()
+	sorted_dict2 = sorted(emo_count2.items(), key=operator.itemgetter(1))
+	sorted_dict2.reverse()
+
+	#save emotions and freqs in list by same index
+	emotions1, emotions2 = [], []
+	freqs1, freqs2 = [], []
+
+	for n in sorted_dict1:
+		emotions1.append(n[0])
+		freqs1.append(n[1])
+
+	for n in sorted_dict2:
+		freqs2.append(n[1])
+
+	#plot emotions-frequencies for both annotations
+	fig, ax = plt.subplots()
+	index = np.arange(n_groups)
+	bar_width = 0.35
+	opacity = 0.8
+
+	rects1 = plt.bar(index, freqs1, bar_width,
+	alpha=opacity, color='b', label='Annotation 1')
+
+	rects2 = plt.bar(index + bar_width, freqs2, bar_width,
+	alpha=opacity, color='g', label='Annotation 2')
+
+	plt.ylabel('Absolute Occurrences')
+	plt.title('Absolute occurrences of emotion for each annotation')
+	plt.xticks(index + bar_width, emotions1)
+	plt.legend()
+
+	plt.tight_layout()
+	plt.show()
+
+
 
 
 if __name__ == '__main__':
@@ -147,10 +194,15 @@ if __name__ == '__main__':
 
 	annotator_agreement(labels1, labels2)
 
+	#print(emotion1)
+	#print(emotion2)
+
 	#print(annotations1)
 	#print(annotations2)
 
 	disagreements(annotations1, annotations2)
+
+	vis_freq_emotions(emotion1, emotion2)
 
 
 	
