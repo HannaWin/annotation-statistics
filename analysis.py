@@ -128,6 +128,48 @@ def disagreements(anno_dict1, anno_dict2):
 
 	print(differences)
 	return differences
+	
+
+
+def vis_percent_emotions(emo_count1, emo_count2):
+	"""calculates the percentage of annotated emotion,,
+	considerng both annotations """
+	n_groups = len(emo_count2)
+
+	#save emotions and freqs in list by same index
+	counts, percentages = {}, {}
+	total = 0
+
+	#get total number of annotations
+	for e, n in emo_count1.items():
+		counts[e] = n
+		total += n
+	for e, n in emo_count2.items():
+		counts[e] += n
+		total += n
+
+	#calculate percentages
+	for e, c in counts.items():
+		percentages[e] = round(c/total*100, 2)
+
+	#sort precentages for size
+	sorted_counts = sorted(percentages.items(), key=operator.itemgetter(1))
+	sorted_counts.reverse()
+
+	emotions = []
+	perc = []
+
+	for n in sorted_counts:
+		emotions.append(n[0])
+		perc.append(n[1])
+
+	#plot percentage for each emotion
+	plt.bar(emotions, perc, align="center", alpha=0.5)
+	plt.xticks(emotions)
+	plt.ylabel("Percentage")
+	plt.title("Percentage of annotated emotions for both annotations")
+	plt.show()
+
 
 
 
@@ -203,6 +245,8 @@ if __name__ == '__main__':
 	disagreements(annotations1, annotations2)
 
 	vis_freq_emotions(emotion1, emotion2)
+
+	vis_percent_emotions(emotion1, emotion2)
 
 
 	
