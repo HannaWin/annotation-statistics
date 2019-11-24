@@ -1,15 +1,10 @@
 # annotation-statistics
-annotation statistics for emotion analysis on a small corpus
+annotation statistics for emotion analysis
 
-## Corpus
+## Emotion Annotation
 
-The corpus is made of 101 headlines from r/offmychest (https://www.reddit.com/r/offmychest/), extracted on 6.11.2019.
+This directory provides code to annotate sentences with emotions according to Ekman's emotion classification. It further includes the option to visualize annotated labels and differences with matplotlib.
 
-It is annotated with emotions according to Ekman's emotion classification, along with 3 classes of intensities (high, normal, low).
+## Emotion Dictionary
 
-## Analysis
-
-* counts of labeled emotions
-* counts of labeled emotions with intensities
-* annotator agreement according to Cohen's Kappa
-* list of sentences whose labels differ among annotators
+Ths directory contains a small corpus o amazon reviews which were used to build an emotion dictionary. The data was preprocessed using the nltk POS-Tagger. The annotations were visualized with matplotlib.
